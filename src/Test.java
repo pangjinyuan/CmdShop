@@ -23,6 +23,7 @@ public class Test {
         File file = new File("C:\\Users\\庞\\IdeaProjects\\CmdShop\\src\\users.xlsx");
         ReadExcel readExcel = new ReadExcel();//创建对象
         User users[] = readExcel.readExcel(file);
+        System.out.println("从excel读到的密码:"+users[0].getPassword());
 
         for (int i = 0; i < users.length; i++) {
             if (username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
