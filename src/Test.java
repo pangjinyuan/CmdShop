@@ -1,36 +1,40 @@
 import user.User;
 
-import java.io.File;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         /*
         开始读文件
          */
-        
-        System.out.println("请输入用户名：");
+        boolean bool=true;
+        while (bool) {
+            System.out.println("请输入用户名：");
 
-        Scanner sc = new Scanner(System.in);
-        String username = sc.next();//阻塞方法
-        System.out.println("你输入的用户名：" + username);
+            Scanner sc = new Scanner(System.in);
+            String username = sc.next();//阻塞方法
+            System.out.println("你输入的用户名：" + username);
 
-        System.out.println("请输入密码：");
-        String password = sc.next();
+            System.out.println("请输入密码：");
+            String password = sc.next();
 
-        System.out.println("你输入的密码是：" + password);
+            System.out.println("你输入的密码是：" + password);
 
-        File file = new File("C:\\Users\\庞\\IdeaProjects\\CmdShop\\src\\users.xlsx");
-        ReadExcel readExcel = new ReadExcel();//创建对象
-        User users[] = readExcel.readExcel(file);
-        System.out.println("从excel读到的密码:"+users[0].getPassword());
+            //File file = new File("C:\\Users\\庞\\IdeaProjects\\CmdShop\\src\\users.xlsx");
+            InputStream in = Class.forName("Test").getResourceAsStream("/users.xlsx");// /表示的就是classpath
+            ReadUserExcel readExcel = new ReadUserExcel();//创建对象
+            User users[] = readExcel.readExcel(in);
 
-        for (int i = 0; i < users.length; i++) {
-            if (username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
-                System.out.println("登陆成功");
-                break;
-            } else {
-                System.out.println("登陆失败");
+
+            for (int i = 0; i < users.length; i++) {
+                if (username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
+                    System.out.println("登陆成功");
+                    bool = false;
+                    break;
+                } else {
+                    System.out.println("登陆失败");
+                }
             }
         }
     }
