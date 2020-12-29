@@ -10,6 +10,15 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 
 public class ReadProductExcel {
+    public static void main(String[] args) throws ClassNotFoundException {
+        InputStream in = Class.forName("Test").getResourceAsStream("/product.xlsx");// /表示的就是classpath
+        Product []products=new ReadProductExcel().readExcel(in);
+        for (Product product:products){
+            System.out.println(product.getName());
+            System.out.println("\t"+product.getPrice());
+            System.out.println("\t"+product.getDesc());
+        }
+    }
 
 
 
@@ -29,16 +38,16 @@ public class ReadProductExcel {
                         continue;
                     if (k == 0) {
 
-                        product.setId(this.getValue(cell));//给username属性赋值
+                        product.setId(this.getValue(cell));
                     } else if (k == 1) {
 
-                        product.setName(this.getValue(cell));//给password属性赋值
+                        product.setName(this.getValue(cell));
                     } else if (k == 2) {
 
-                        product.setPrice(Float.valueOf(this.getValue(cell)));//给address属性赋值
+                        product.setPrice(Float.valueOf(this.getValue(cell)));
                     } else if (k == 3) {
 
-                        product.setDesc(this.getValue(cell));//给phone属性赋值
+                        product.setDesc(this.getValue(cell));
                     }
                 }
                 products[j-1] = product;
