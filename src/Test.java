@@ -33,27 +33,39 @@ public class Test {
                 if (username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
                     System.out.println("登陆成功");
                     bool = false;
+                    /*
+                    显示商品信息
+                     */
+                    ReadProductExcel readProductExcel = new ReadProductExcel();
+                    Product products[] = readProductExcel.getAllProduct(inpro);
+                    for (Product product : products) {
+                        System.out.print(product.getId());
+                        System.out.print("\t" + product.getName());
+                        System.out.print("\t" + product.getPrice());
+                        System.out.println("\t" + product.getDesc());
+                    }
+                    /*
+                    遍历数组
+                     */
+                    int count = 0;
+                    Product productes[] = new Product[3];//创建购物车（用数组模拟)
+                    System.out.println("请输入商品ID，把该商品加入购物车:");
+                    String pId = sc.next();
+                    ReadProductExcel readProductExcel1 = new ReadProductExcel();
+                    inpro=null;
+                    inpro = Class.forName("Test").getResourceAsStream("/product.xlsx");// /表示的就是classpath
+                    Product product = readProductExcel1.getProductById(pId, inpro);
+                    if (product != null) {
+                        /*
+                        把商品加入购物车
+                         */
+                        productes[count++] = product;
+                    }
                     break;
                 } else {
                     System.out.println("登陆失败");
                 }
             }
-            ReadProductExcel readProductExcel = new ReadProductExcel();
-            Product products[] = readProductExcel.getAllProduct(inpro);
-            for (Product product : products) {
-                System.out.print(product.getId());
-                System.out.print("\t" + product.getName());
-                System.out.print("\t" + product.getPrice());
-                System.out.println("\t" + product.getDesc());
-            }
-            System.out.println("请输入商品ID，把该商品加入购物车:");
-            String pId=sc.next();
-            ReadProductExcel readProductExcel1=new ReadProductExcel();
-            inpro= Class.forName("Test").getResourceAsStream("/product.xlsx");// /表示的就是classpath
-
-            Product product=readProductExcel1.getProductById(pId,inpro);
-
-
-}
+        }
     }
 }

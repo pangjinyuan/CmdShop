@@ -10,12 +10,17 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 
 public class ReadProductExcel {
+    /**
+     * 返回所有的商品
+     * @param in
+     * @return 包含了所有商品的数组
+     */
     public Product[] getAllProduct(InputStream in) {
         Product products[] = null;
         try {
             XSSFWorkbook xw = new XSSFWorkbook(in);
             XSSFSheet xs = xw.getSheetAt(0);
-            products= new Product[xs.getLastRowNum()];
+            products = new Product[xs.getLastRowNum()];
             for (int j = 1; j <= xs.getLastRowNum(); j++) {
                 XSSFRow row = xs.getRow(j);
                 Product product = new Product();//每循环一次就把电子表格的一行的数据给对象赋值
@@ -37,7 +42,7 @@ public class ReadProductExcel {
                         product.setDesc(this.getValue(cell));
                     }
                 }
-               products[j-1]=product;
+                products[j - 1] = product;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,7 +50,14 @@ public class ReadProductExcel {
         return products;
     }
 
-    public Product getProductById(String id,InputStream in) {
+    /**
+     * 根据ID查找商品
+     * @param id
+     * @param in
+     * @return 返回id对应的商品
+     */
+
+    public Product getProductById(String id, InputStream in) {
         try {
             XSSFWorkbook xw = new XSSFWorkbook(in);
             XSSFSheet xs = xw.getSheetAt(0);
@@ -70,8 +82,8 @@ public class ReadProductExcel {
                         product.setDesc(this.getValue(cell));
                     }
                 }
-                if(id.equals(product.getId())){
-                    return  product;
+                if (id.equals(product.getId())) {
+                    return product;
                 }//如果id(手动输入的）和product的id（从电子表格立读出来的）一致，则表示找到了该商品，然后返回该商品即可
             }
         } catch (IOException e) {
