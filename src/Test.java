@@ -81,6 +81,12 @@ public class Test {
                                 System.out.print("\t" + p.getPrice());
                                 System.out.println("\t" + p.getDesc());
                             }
+                        } else if (choose == 3) {
+                            Order order=new Order();
+                            order.setUser(users[i]);
+                            order.setProduct(productes);
+                            order.setTotaPrice();
+                            order.setFinalPay();
                         } else if (choose == 4) {
                             break;
                         }
